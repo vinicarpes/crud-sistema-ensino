@@ -24,28 +24,21 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Otto</td>
-    <td>@mdo</td>
-    <td><a href="#">Detalhes</a></td>
-    <td><a href="#">Editar</a></td>
-    <td><a href="#">Deletar</a></td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Jacob</td>
-    <td>Thornton</td>
-    <td>@fat</td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td colspan="2">Larry the Bird</td>
-    <td>@twitter</td>
+  <tr th:each="professor : ${professores}">
+    <th class="col-1" scope="row" th:text="${professor.getId()}">ID</th>
+    <td class="col-4" th:text="${professor.nome}">Nome do professor</td>
+    <td class="col-2" th:text="${professor.salario}">Salário</td>
+    <td class="col-2" th:text="${professor.statusProfessor}">Status</td>
+    <td class="col-1"><a href="#">Detalhes</a></td>
+    <td class="col-1"><a href="#">Editar</a></td>
+    <td class="col-1"><a href="#">Deletar</a></td>
   </tr>
   </tbody>
 </table>
+
+<div class="row">
+  <a href="/professor/new">Novo professor</a>
+</div>
 
 <!-- Optional JavaScript; choose one of the two! -->
 

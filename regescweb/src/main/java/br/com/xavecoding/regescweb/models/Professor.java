@@ -18,6 +18,13 @@ public class Professor {
     private StatusProfessor statusProfessor;
 
     public Professor(String nome, BigDecimal salario, StatusProfessor statusProfessor) {
+        this.statusProfessor =statusProfessor;
+        this.salario =salario;
+        this.nome = nome;
+    }
+
+    public Professor() {
+
     }
 
 
@@ -43,6 +50,16 @@ public class Professor {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", salario=" + salario +
+                ", statusProfessor=" + statusProfessor +
+                '}';
     }
 
     public BigDecimal getSalario() {

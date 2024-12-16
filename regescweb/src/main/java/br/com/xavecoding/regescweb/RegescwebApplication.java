@@ -9,5 +9,4 @@ public class RegescwebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RegescwebApplication.class, args);
 	}
-
 }

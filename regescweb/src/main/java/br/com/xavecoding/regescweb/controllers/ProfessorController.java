@@ -1,16 +1,20 @@
 package br.com.xavecoding.regescweb.controllers;
 
+import br.com.xavecoding.regescweb.dto.RequisaoNovoProfessor;
 import br.com.xavecoding.regescweb.models.Professor;
 import br.com.xavecoding.regescweb.models.StatusProfessor;
 import br.com.xavecoding.regescweb.repositories.ProfessorRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@Controller
+    @Controller
     public class ProfessorController {
 
     @Autowired
@@ -27,12 +31,26 @@ import java.util.List;
             return mv;
     }
 
-    @GetMapping("/professor/new")
+    @GetMapping("/professores/new")
     public ModelAndView nnew(){
-        ModelAndView mv = new ModelAndView("/professor/new");
+        ModelAndView mv = new ModelAndView("/professores/new");
         mv.addObject("statusProfessor", StatusProfessor.values());
 
         return mv;
+    }
+
+    @PostMapping("/professores")
+    public String create(@Valid @ModelAttribute("requisicaoNovoProfessor") RequisaoNovoProfessor requisicao, BindingResult result) {//anotação antes do parâmtro para impedir a inserção de valores conforme especificado na classe DTO
+        System.out.println(requisicao);
+        if (result.hasErrors()) {
+            System.out.println("###########POSSUI ERROS#############");
+            return "redirect:/professores/new";
+        } else {
+            Professor professor = requisicao.toProfessor();
+            this.professorRepository.save(professor);
+
+            return "redirect:/professores";
+        }
     }
 
 

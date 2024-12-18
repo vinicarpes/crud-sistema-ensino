@@ -20,21 +20,21 @@
 
     <div class="container">
         <div class="row">
-            <form action="/professores" method="post">
+            <form action="/professores" method="post"  th:object="${requisicaoNovoProfessor}">
                 <div class="mb-3">
-                    <label class="form-label">Nome</label>
-                    <input class="form-control" type="text" name="nome">
+                    <label id="nome" class="form-label">Nome</label>
+                    <input for="nome" class="form-control" type="text" name="nome">
                     <div></div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Salário</label>
-                    <input class="form-control" type="text" name="salario">
+                    <label id="salario" class="form-label">Salário</label>
+                    <input for="salario" class="form-control" type="text" name="salario">
                     <div></div>
                     <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" name="status">
+                        <label id="statusProfessor" class="form-label">Status</label>
+                        <select th:for="statusProfessor" class="form-select" name="statusProfessor">
                             <option th:each="status : ${statusProfessor}"
-                                    th:value="${status}" th:text="${status}"></option>//itera e adiciona todos os valores existentes em StatusProfessor
+                                    th:value="${status}" th:text="${status}"></option>'''//itera e adiciona todos os valores existentes em StatusProfessor'''
                         </select>
                     </div>
                     <button class="btn btn-primary" type="submit">Submeter</button>

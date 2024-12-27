@@ -1,6 +1,8 @@
 package br.com.xavecoding.regescweb.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -12,7 +14,10 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
+    @NotNull
+    @NotBlank
     private String nome;
+    @NotNull
     private BigDecimal salario;
     @Enumerated(EnumType.STRING) //valor enumerado e o guarda como string
     private StatusProfessor statusProfessor;

@@ -1,6 +1,5 @@
 package br.com.xavecoding.regescweb.dto;
 
-
 import br.com.xavecoding.regescweb.models.Professor;
 import br.com.xavecoding.regescweb.models.StatusProfessor;
 import java.math.BigDecimal;
@@ -8,11 +7,14 @@ import java.math.BigDecimal;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-//é uma classe dto: data transfer object
+// é uma classe dto: data transfer object
 public class RequisaoNovoProfessor {
+
     @NotNull(message = "O nome é obrigatório.")
     @NotBlank(message = "O nome não pode estar em branco.")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")
     private String nome;
 
     @NotNull(message = "O status do professor é obrigatório.")
@@ -46,7 +48,7 @@ public class RequisaoNovoProfessor {
         this.statusProfessor = statusProfessor;
     }
 
-    public Professor toProfessor(){
+    public Professor toProfessor() {
         Professor professor = new Professor();
         professor.setNome(this.nome);
         professor.setStatusProfessor(this.statusProfessor);
@@ -54,6 +56,7 @@ public class RequisaoNovoProfessor {
 
         return professor;
     }
+
     @Override
     public String toString() {
         return "RequisaoNovoProfessor{" +

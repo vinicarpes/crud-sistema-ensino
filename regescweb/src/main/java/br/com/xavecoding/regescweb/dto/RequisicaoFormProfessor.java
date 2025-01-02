@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 // é uma classe dto: data transfer object
-public class RequisaoNovoProfessor {
+public class RequisicaoFormProfessor {
 
     @NotNull(message = "O nome é obrigatório.")
     @NotBlank(message = "O nome não pode estar em branco.")
@@ -57,9 +57,16 @@ public class RequisaoNovoProfessor {
         return professor;
     }
 
+    public void fromProfessor(Professor professor) {
+        this.nome = professor.getNome();
+        this.statusProfessor = professor.getStatusProfessor();
+        this.salario = professor.getSalario();
+    }
+
+
     @Override
     public String toString() {
-        return "RequisaoNovoProfessor{" +
+        return "RequisicaoFormProfessor{" +
                 "nome='" + nome + '\'' +
                 ", statusProfessor=" + statusProfessor +
                 ", salario=" + salario +

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProfessorController {
@@ -44,11 +45,29 @@ public class ProfessorController {
             mv.addObject("statusProfessor", StatusProfessor.values());
             mv.addObject("requisicaoNovoProfessor", requisicao); // Preenche os dados do formulário
             return mv;
+        } else {
+            // Se não houver erros, salva o professor e redireciona
+            Professor professor = requisicao.toProfessor();
+            this.professorRepository.save(professor);
+
+            return new ModelAndView("redirect:/professores/" + professor.getId());
+        }
+    }
+
+    @GetMapping("/professores/{id}")
+    public ModelAndView show(@PathVariable Long id){ //define o Long id como referencia para o getmapping
+        Optional<Professor> optional = this.professorRepository.findById(id);
+
+        if (optional.isPresent()){
+            Professor professor = optional.get();
+
+            ModelAndView mv = new ModelAndView("professores/show");
+            mv.addObject("professor", professor);
+
+            return mv;
+        }else {
+            return new ModelAndView("redirect:/professores");
         }
 
-        // Se não houver erros, salva o professor e redireciona
-        Professor professor = requisicao.toProfessor();
-        professorRepository.save(professor);
-        return new ModelAndView("redirect:/professores");
     }
 }

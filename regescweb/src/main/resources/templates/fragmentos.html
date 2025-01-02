@@ -16,12 +16,10 @@
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link"
-                   th:classappend="${#request.getRequestURI() == '/' ? 'active' : ''}"
                    href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                   th:classappend="${#request.getRequestURI.startsWith('/professores') ? 'active' : ''}"
                    href="/professores">Professores</a>
             </li>
             <li class="nav-item">

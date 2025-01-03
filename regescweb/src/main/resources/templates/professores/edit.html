@@ -6,42 +6,7 @@
 <header th:replace="~{fragmentos :: header('Editar Professor #' + ${professorId})}"></header>
 
 
-<div class="container mt-5">
-
-    <form th:action="@{/professores/{professorId}(professorId = ${professorId})}" th:object="${requisicaoFormProfessor}" method="post">
-        <!-- Nome -->
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
-            <input id="nome" class="form-control" th:errorclass="is-invalid" type="text" th:field="*{nome}" />
-            <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
-            <div class="invalid-feedback" th:errors="*{nome}"></div>
-        </div>
-
-        <!-- Salário -->
-        <div class="mb-3">
-            <label for="salario" class="form-label">Salário</label>
-            <input id="salario" class="form-control" th:errorclass="is-invalid" type="text" th:field="*{salario}" />
-<!--            <div class="text-danger" th:if="${# fields.hasErrors('salario')}" th:errors="*{salario}"></div>-->
-            <div class="invalid-feedback" th:errors="*{salario}"></div>
-        </div>
-
-        <!-- Status -->
-        <div class="mb-3">
-            <label for="statusProfessor" class="form-label">Status</label>
-            <select id="statusProfessor" class="form-select" th:field="*{statusProfessor}">
-                <option th:each="status : ${statusProfessor}"
-                        th:value="${status}" th:text="${status}"></option>
-            </select>
-            <div class="text-danger" th:if="${#fields.hasErrors('statusProfessor')}" th:errors="*{statusProfessor}"></div>
-        </div>
-
-        <!-- Botões -->
-        <div class="d-flex justify-content-between">
-            <button class="btn btn-primary" type="submit">Salvar</button>
-            <a class="btn btn-secondary" href="javascript:history.back()">Cancelar</a>
-        </div>
-    </form>
-</div>
+<div th:replace="~{professores/fragementos :: form(requisicaoFormProfessor,'/professores/' +${professorId})}">Formulário</div>
 
 <!-- Optional JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

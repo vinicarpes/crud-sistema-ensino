@@ -8,7 +8,7 @@
 
 <div class="container mt-5">
 
-    <form th:action="@{/professores}" th:object="${requisicaoFormProfessor}" method="post">
+    <form th:action="@{/professores/{professorId}(professorId = ${professorId})}" th:object="${requisicaoFormProfessor}" method="post">
         <!-- Nome -->
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>

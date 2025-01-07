@@ -6,6 +6,7 @@ import br.com.xavecoding.regescweb.models.StatusProfessor;
 import br.com.xavecoding.regescweb.repositories.ProfessorRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +68,7 @@ public class ProfessorController {
 
             return mv;
         }else {
-            return new ModelAndView("redirect:/professores");
+            return this.retornaErrorProfessores("Professor #"+id + " não encontrado!");
         }
 
     }
@@ -84,8 +85,10 @@ public class ProfessorController {
             mv.addObject("statusProfessor", StatusProfessor.values());
             mv.addObject("professorId", professor.getId());
             return mv;
-        }else {
-            return new ModelAndView("redirect:/professores");
+        }
+        //professor não encontrado
+        else {
+            return this.retornaErrorProfessores("Professor #"+id + " não encontrado!");
         }
     }
 
@@ -106,23 +109,34 @@ public class ProfessorController {
                 return new ModelAndView("redirect:/professores/" + professor.getId());
 
             }else {
-            return new ModelAndView("redirect:/professores");
+                ModelAndView mv = new ModelAndView("redirect:/professores");
+                return this.retornaErrorProfessores("Professor #"+id + " não encontrado!");
         }
         }
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id){
+    public ModelAndView delete(@PathVariable Long id){
+        ModelAndView mv = new ModelAndView("redirect:/professores");
+
         try{
-        System.out.println("------ ID " + id);
         this.professorRepository.deleteById(id);
-
-        return "redirect:/professores";
+        mv.addObject("message", "Professor #"+id + " deletado com sucesso!");
+        mv.addObject("error", false);
     }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-
-            return "redirect:/professores";
+        catch (EmptyResultDataAccessException e){
+            System.out.println(e);
+            mv = this.retornaErrorProfessores("Professor #"+id + " não encontrado!");
         }
+        return mv;
+    }
+
+
+
+    private ModelAndView retornaErrorProfessores(String msg){
+        ModelAndView mv = new ModelAndView("redirect:/professores");
+        mv.addObject("message", msg);
+        mv.addObject("error", true);
+        return mv;
     }
 }

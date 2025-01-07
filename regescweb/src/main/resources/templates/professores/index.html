@@ -1,11 +1,19 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragmentos :: head('Lista de professores')}"></head>
+<body>
 
 <header th:replace="~{fragmentos :: header('Listagem de Professores')}"></header>
+<div class="container mb-4">
+  <div class="col-12">
+<!--  usa message e error como parametro: http://localhost:8080/professores?message=&error=true  -->
+    <span
+            th:styleappend="${(param.error == null || param.message ==null) ? 'display : none' : ''}"
+            th:classappend="${(param.error != null && param.error) ? 'error-message': 'success-message'}"
+          th:text="${param.message != null ? param.message : ''}">Uma mensagem qualquer!</span>
+  </div>
+</div>
 
-
-<body>
 
 <div class="container mt-4">
   <div class="row">
